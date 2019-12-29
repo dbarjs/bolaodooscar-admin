@@ -23,18 +23,11 @@ export default {
     }
   },
   computed: {
-    count() {
-      return this.$store.state.todolist.count;
-    },
+    ...mapState("todolist", ["count"]),
+    ...mapGetters("todolist", ["doneTodosCount"]),
     getTodo() {
       return this.$store.getters["todolist/getTodoById"](2);
-    },
-    doneTodosCount() {
-      return this.$store.getters["todolist/doneTodosCount"];
     }
-    // ...mapGetters("todolist", {
-    // doneTodosCount: "doneTodosCount"
-    // })
   },
   created() {}
 };
