@@ -17,7 +17,6 @@ document.body.appendChild(app.element);
 import firebase from "./firebase";
 
 app.auth = firebase.auth();
-app.database = firebase.database();
 
 /**
  * Vue instance here

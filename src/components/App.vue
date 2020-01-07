@@ -1,19 +1,38 @@
 <template>
   <div>
     <h1>Hello World</h1>
-    <counter></counter>
+    <ul>
+      <li v-for="todo in todos" :key="todo['.key']">
+        {{ todo.key }} {{ todo }}
+        <button @click="removeTodo(todo)">X</button>
+      </li>
+    </ul>
+    <button>Bind!</button>
+    <p></p>
   </div>
 </template>
 
 <script>
-import Counter from "./Counter.vue";
+import { mapActions, mapState } from "vuex";
+import firebase from "../firebase";
+
+const db = firebase.database();
+const todosRef = db.ref("todos");
 
 export default {
-  components: {
-    Counter
+  methods: {},
+  computed: mapState(["todos"]),
+  created: function() {
+    this.source = todosRef;
+    this.$store.dispatch("bindTodosRef");
+  },
+  methods: {
+    removeTodo: function(todo) {
+      console.log(todo);
+      this.source.child(todo[".key"]).set(null);
+    }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>
