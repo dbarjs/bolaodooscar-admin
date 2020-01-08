@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Vuexfire test</title>
+    <style>
+      body {
+        background-color: #eeeeee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        {{items}}
+        <li v-for="item in items" :key="item.id">
+          {{ item.text }} <button @click="removeTodo(item.id)">X</button>
+        </li>
+      </ul>
+      <form @submit.prevent="addTodo">
+        <input type="text" v-model="newTodo" />
+        <button>Add #{{ items.length }}</button>
+      </form>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD-eeaoxoITXsdJclJyMwnvSakiX7r_xH0",
+        authDomain: "bolaodooscar-app.firebaseapp.com",
+        databaseURL: "https://bolaodooscar-app.firebaseio.com",
+        projectId: "bolaodooscar-app",
+        storageBucket: "bolaodooscar-app.appspot.com",
+        messagingSenderId: "579261583359",
+        appId: "1:579261583359:web:3ef6624423a37c695921ca",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.firestore();
+      const itemsRef = database.collection("items");
+    </script>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vuex"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuexfire@3.2.1/dist/vuexfire.min.js"></script>
+    <script>
+      Vue.use(Vuex);
+
+      var store = new Vuex.Store({
+        strict: true,
+        state: { items: [] },
+        mutations: Vuexfire.vuexfireMutations,
+        actions: {
+          bindItemsRef: Vuexfire.firestoreAction(function(context, ref) {
+            context.bindFirestoreRef("items", ref);
+          }),
+        },
+      });
+
+      window.vm = new Vue({
+        el: "#app",
+        store: store,
+        computed: Vuex.mapState(["items"]),
+        data: {
+          newTodo: "",
+        },
+        methods: {
+          removeTodo: function(id) {
+            this.source.doc(id).delete();
+          },
+          addTodo: function() {
+            if (this.newTodo.trim()) {
+              this.source.add({
+                text: this.newTodo,
+              });
+              this.newTodo = "";
+            }
+          },
+        },
+        created: function() {
+          this.source = itemsRef;
+          this.$store.dispatch("bindItemsRef", this.source);
+        },
+      });
+    </script>
+  </body>
+</html>
