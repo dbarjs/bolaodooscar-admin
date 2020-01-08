@@ -23,14 +23,29 @@ app.auth = firebase.auth();
  */
 
 import Vue from "vue";
+import VueRouter from "vue-router";
 import { rtdbPlugin } from "vuefire";
 import App from "./components/App.vue";
 import store from "./store";
 
 Vue.use(rtdbPlugin);
+Vue.use(VueRouter);
+
+const Foo = { template: "<div>Foo</div>" };
+const Bar = { template: "<div>Bar</div>" };
+
+const routes = [
+  { path: "/foo", component: Foo },
+  { path: "/bar", component: Bar },
+];
+
+const router = new VueRouter({
+  routes,
+});
 
 new Vue({
   el: app.element,
   store,
+  router,
   render: h => h(App),
 });

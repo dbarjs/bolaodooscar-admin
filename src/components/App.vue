@@ -1,17 +1,12 @@
 <template>
   <div>
     <h1>Lista de Filmes</h1>
-    <ul>
-      <li v-for="todo in todos" :key="todo['.key']">
-        {{ todo.key }} {{ todo }}
-        <button @click="removeTodo(todo)">X</button>
-      </li>
-    </ul>
-    <form @submit.prevent="addTodo">
-      <input type="text" v-model="newTodo" />
-      <button>Add #{{todos.length}}</button>
-    </form>
-    <p></p>
+    <p>
+      <router-link to="/foo">Go to Foo</router-link>
+      <router-link to="/bar">Go to Bar</router-link>
+    </p>
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,33 +14,17 @@
 import { mapActions, mapState } from "vuex";
 import firebase from "../firebase";
 
-const db = firebase.database();
-const todosRef = db.ref("todos");
-
 export default {
-  data: function() {
-    return {
-      newTodo: ""
-    };
-  },
-  computed: mapState(["todos"]),
-  created: function() {
-    this.source = todosRef;
-    this.$store.dispatch("bindTodosRef");
+  computed: {
+    username() {
+      return this.$route.params.username;
+    },
   },
   methods: {
-    addTodo: function() {
-      if (this.newTodo.trim()) {
-        this.source.push({
-          text: this.newTodo
-        });
-        this.newTodo = "";
-      }
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     },
-    removeTodo: function(todo) {
-      this.source.child(todo[".key"]).set(null);
-    }
-  }
+  },
 };
 </script>
 
