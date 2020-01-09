@@ -1,6 +1,7 @@
 <template>
   <section class="movie-section">
     <h1>Lista de Filmes</h1>
+    <movie-editor></movie-editor>
     <ul class="movie-list">
       <movie-list-item
         v-for="movie in movies"
@@ -17,6 +18,7 @@ import { database } from "../firebase";
 import { mapGetters } from "vuex";
 import MovieListItem from "./MovieListItem.vue";
 import MovieButton from "./MovieButton.vue";
+import MovieEditor from "./MovieEditor.vue";
 export default {
   computed: mapGetters({
     movies: "movies/getMoviesList",
@@ -24,6 +26,7 @@ export default {
   components: {
     MovieListItem,
     MovieButton,
+    MovieEditor,
   },
   created: function() {
     this.source = database.collection("movies");

@@ -1,5 +1,5 @@
 <template>
-  <li class="movie-list-item">
+  <li class="movie-list-item" @click="active()">
     <p>
       <strong>{{ movieData.title }}</strong>
       <small>({{ movieData.year }})</small>
@@ -12,6 +12,11 @@ export default {
   name: "Message",
   props: {
     movieData: Object,
+  },
+  methods: {
+    active: function() {
+      this.$store.commit("setCurrentMovie", this.movieData);
+    },
   },
 };
 </script>
