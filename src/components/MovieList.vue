@@ -7,6 +7,7 @@
         v-bind:movie-data="movie"
         :key="movie.id"
       ></movie-list-item>
+      <movie-button></movie-button>
     </ul>
   </section>
 </template>
@@ -15,12 +16,14 @@
 import { database } from "../firebase";
 import { mapGetters } from "vuex";
 import MovieListItem from "./MovieListItem.vue";
+import MovieButton from "./MovieButton.vue";
 export default {
   computed: mapGetters({
     movies: "movies/getMoviesList",
   }),
   components: {
     MovieListItem,
+    MovieButton,
   },
   created: function() {
     this.source = database.collection("movies");
