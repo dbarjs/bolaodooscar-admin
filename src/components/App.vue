@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <h1>Lista de Filmes</h1>
-  </div>
+  <movie-list></movie-list>
 </template>
 
 <script>
+import MovieList from "./MovieList.vue";
 import { mapActions, mapState } from "vuex";
-import firebase from "../firebase";
 
-export default {};
+export default {
+  components: {
+    MovieList
+  }
+};
 </script>
+
 <style></style>

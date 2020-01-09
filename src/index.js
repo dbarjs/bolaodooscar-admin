@@ -11,14 +11,6 @@ const app = {
 document.body.appendChild(app.element);
 
 /**
- * Firebase functions
- */
-
-import firebase from "./firebase";
-
-app.auth = firebase.auth();
-
-/**
  * Vue instance here
  */
 
