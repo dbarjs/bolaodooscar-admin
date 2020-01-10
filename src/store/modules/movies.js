@@ -14,6 +14,10 @@ const actions = {
   bindMoviesRef: firestoreAction((context, collectionRef) => {
     context.bindFirestoreRef("movies", collectionRef);
   }),
+  setMovie(state, movie) {
+    console.log(movie);
+    // state.movies = movie ? movie : false;
+  },
 };
 
 export default {
