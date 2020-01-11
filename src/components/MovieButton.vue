@@ -1,5 +1,5 @@
 <template>
-  <button @click="addMovie()">Add</button>
+  <button @click="addMovie()">Adicionar Filme</button>
 </template>
 
 <script>

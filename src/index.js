@@ -7,7 +7,6 @@ import "normalize.css";
 const app = {
   element: document.createElement("main"),
 };
-
 document.body.appendChild(app.element);
 
 /**

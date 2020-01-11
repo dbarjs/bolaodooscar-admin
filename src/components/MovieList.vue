@@ -8,8 +8,8 @@
         v-bind:movie-data="movie"
         :key="movie.id"
       ></movie-list-item>
-      <movie-button></movie-button>
     </ul>
+    <movie-button></movie-button>
   </section>
 </template>
 
@@ -21,7 +21,7 @@ import MovieButton from "./MovieButton.vue";
 import MovieEditor from "./MovieEditor.vue";
 export default {
   computed: mapGetters({
-    movies: "movies/getMoviesList",
+    movies: "movies/getMovieList",
   }),
   components: {
     MovieListItem,

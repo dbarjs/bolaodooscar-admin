@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Message",
+  name: "MovieListItem",
   props: {
     movieData: Object,
   },

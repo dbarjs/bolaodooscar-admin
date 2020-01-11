@@ -2,6 +2,12 @@
   <div class="movie-editor" v-if="movie">
     <input
       type="text"
+      v-model="movie.imdbId"
+      placeholder="IMDB ID"
+      @input="update($event, 'imdbId')"
+    />
+    <input
+      type="text"
       v-model="movie.title"
       placeholder="Title"
       @input="update($event, 'title')"
@@ -24,6 +30,7 @@
       placeholder="Director"
       @input="update($event, 'director')"
     />
+    <button @click="deleteMovie">Excluir Filme</button>
   </div>
 </template>
 
@@ -38,7 +45,13 @@ export default {
   },
   methods: {
     update(event, fieldName) {
-      this.source.update({ [fieldName]: autoParse(event.target.value.trim()) });
+      this.source.update({
+        [fieldName]: autoParse(event.target.value.trim()) || "",
+      });
+    },
+    deleteMovie() {
+      this.source.delete();
+      this.$store.commit("setCurrentMovie", false);
     },
   },
   beforeUpdate: function() {
