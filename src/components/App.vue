@@ -1,8 +1,8 @@
 <template>
   <main class="app">
+    <movie-list></movie-list>
     <movie-selector></movie-selector>
     <category-list></category-list>
-    <movie-list></movie-list>
   </main>
 </template>
 

@@ -6,6 +6,7 @@
       placeholder="IMDB ID"
       @input="update($event, 'imdbId', String)"
     />
+    <button @click="fetchApiData">Get IMDB data</button>
     <input
       type="text"
       v-model="movie.title"
@@ -39,6 +40,7 @@
 <script>
 import { moviesRef } from "../firebase";
 import autoParse from "auto-parse";
+import axios from "axios";
 export default {
   computed: {
     movie: function() {
@@ -58,6 +60,50 @@ export default {
     deleteMovie() {
       this.source.delete();
       this.closeEditor();
+    },
+    fetchApiData() {
+      if (this.movie.imdbId) {
+        axios({
+          method: "GET",
+          url: "https://movie-database-imdb-alternative.p.rapidapi.com/",
+          headers: {
+            "content-type": "application/octet-stream",
+            "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+            "x-rapidapi-key":
+              "d829a7ddbdmsh61447fa124697f6p1eefd6jsn2e983d49a512",
+          },
+          params: {
+            i: this.movie.imdbId,
+            r: "json",
+          },
+        })
+          .then(response => {
+            const data = response.data;
+            console.log(data);
+            this.source.update({
+              originalTitle: data.Title,
+              rate: autoParse(data.imdbRating, Number),
+              imdbRating: autoParse(data.imdbRating, Number),
+              imdbVotes: autoParse(data.imdbVotes, Number),
+              metascore: autoParse(data.Metascore, Number),
+              runtime: Number.parseInt(data.Runtime),
+              poster: data.Poster,
+              year: autoParse(data.Year, Number),
+              production: data.Production,
+              language: data.Language,
+              country: data.Country,
+              director: data.Director,
+              writer: data.Writer,
+              actors: data.Actors,
+              released: data.Released,
+              genre: data.Genre,
+              rated: data.Rated,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
   },
   beforeUpdate: function() {

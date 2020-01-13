@@ -1,4 +1,5 @@
 import { firestoreAction } from "vuexfire";
+import axios from "axios";
 
 const state = {
   movies: [],
