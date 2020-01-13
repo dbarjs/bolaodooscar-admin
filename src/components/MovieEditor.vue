@@ -13,14 +13,15 @@
       @input="update($event, 'title', String)"
     />
     <input
-      type="text"
+      type="number"
       v-model="movie.year"
       placeholder="Year"
       @input="update($event, 'year', Number)"
     />
     <input
-      type="text"
+      type="number"
       v-model="movie.rate"
+      step="0.1"
       placeholder="Rate"
       @input="update($event, 'rate', Number)"
     />
@@ -47,6 +48,7 @@ export default {
   methods: {
     update(event, fieldName, type) {
       this.source.update({
+        // method to parse input value
         [fieldName]: autoParse(event.target.value.trim(), type),
       });
     },

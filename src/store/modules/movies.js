@@ -10,7 +10,7 @@ const getters = {
 
 const actions = {
   bindMoviesRef: firestoreAction((context, collectionRef) => {
-    context.bindFirestoreRef("movies", collectionRef);
+    context.bindFirestoreRef("movies", collectionRef.orderBy("title", "asc"));
   }),
 };
 

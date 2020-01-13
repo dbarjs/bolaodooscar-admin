@@ -9,8 +9,10 @@ export default {
   methods: {
     addMovie: function() {
       database.collection("movies").add({
+        imdbId: "",
         title: "",
-        year: "",
+        year: 2019,
+        rate: 0,
       });
     },
   },
