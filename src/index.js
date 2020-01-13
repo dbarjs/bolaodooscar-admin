@@ -17,6 +17,9 @@ import Vue from "vue";
 import App from "./components/App.vue";
 import store from "./store";
 
+import VueSuggestion from "vue-suggestion";
+Vue.use(VueSuggestion);
+
 new Vue({
   el: app.element,
   store,

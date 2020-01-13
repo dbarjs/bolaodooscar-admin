@@ -4,33 +4,34 @@
       type="text"
       v-model="movie.imdbId"
       placeholder="IMDB ID"
-      @input="update($event, 'imdbId')"
+      @input="update($event, 'imdbId', String)"
     />
     <input
       type="text"
       v-model="movie.title"
       placeholder="Title"
-      @input="update($event, 'title')"
+      @input="update($event, 'title', String)"
     />
     <input
       type="text"
       v-model="movie.year"
       placeholder="Year"
-      @input="update($event, 'year')"
+      @input="update($event, 'year', Number)"
     />
     <input
       type="text"
       v-model="movie.rate"
       placeholder="Rate"
-      @input="update($event, 'rate')"
+      @input="update($event, 'rate', Number)"
     />
     <input
       type="text"
       v-model="movie.director"
       placeholder="Director"
-      @input="update($event, 'director')"
+      @input="update($event, 'director', String)"
     />
     <button @click="deleteMovie">Excluir Filme</button>
+    <button @click="closeEditor">Fechar editor</button>
   </div>
 </template>
 
@@ -44,14 +45,17 @@ export default {
     },
   },
   methods: {
-    update(event, fieldName) {
+    update(event, fieldName, type) {
       this.source.update({
-        [fieldName]: autoParse(event.target.value.trim()) || "",
+        [fieldName]: autoParse(event.target.value.trim(), type),
       });
+    },
+    closeEditor() {
+      this.$store.commit("setCurrentMovie", false);
     },
     deleteMovie() {
       this.source.delete();
-      this.$store.commit("setCurrentMovie", false);
+      this.closeEditor();
     },
   },
   beforeUpdate: function() {
