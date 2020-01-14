@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-suggestion
-      placeholder="Selector"
+      placeholder="Selecione os Filmes"
       :items="movies"
       v-model="movie"
       :setLabel="setLabel"
@@ -9,7 +9,6 @@
       @changed="inputChange"
       @selected="itemSelected"
     ></vue-suggestion>
-    {{ categoryId }}
   </div>
 </template>
 
@@ -22,37 +21,40 @@ export default {
     return {
       movie: {},
       movies: [],
-      MovieSelectorItem
+      MovieSelectorItem,
     };
   },
   props: {
-    categoryId: { required: true }
+    categoryId: { required: true },
   },
   methods: {
     itemSelected(movie) {
       this.movie = movie;
-      this.categoryRef.collection("nominees").add(this.movie);
+      this.categoryRef.collection("nominees").add({
+        name: movie.title,
+        movie: this.movie,
+      });
     },
     setLabel(movie) {
-      return movie.title;
+      return "";
     },
     inputChange(text) {
       this.movies = this.$store.getters["movies/getMovieList"].filter(movie => {
         if (typeof movie.title === "string") {
-          // Copy the 'id' propertie
-          movie.refId = movie.id;
+          // Copy the 'id' value (the original is read-only)
+          movie.movieId = movie.id;
           // Movie search method
-          return movie.title.toLowerCase().includes(text);
+          return movie.title.toLowerCase().includes(text.toLowerCase());
         }
       });
-    }
+    },
   },
   created() {
     this.categoryRef = categoriesRef.doc(this.categoryId);
   },
   beforeUpdate() {
     this.categoryRef = categoriesRef.doc(this.categoryId);
-  }
+  },
 };
 </script>
 

@@ -14,8 +14,8 @@ import { mapActions, mapState } from "vuex";
 export default {
   components: {
     CategoryList,
-    MovieList,
-  },
+    MovieList
+  }
 };
 </script>
 

@@ -884,11 +884,6 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@posva/vuefire-core@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@posva/vuefire-core/-/vuefire-core-2.2.0.tgz#0b934e9f85822529d44b8dfd5061ef53c4b2d80f"
-  integrity sha512-A5fPZCL8P+0DcS5qEY3liaLzOCdDPpdGoW050VzxNueJZDHi1eLfzAEFi5ctxH5wx7r4erwX4MGekX3K5t2b9A==
-
 "@posva/vuefire-core@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@posva/vuefire-core/-/vuefire-core-2.3.0.tgz#23b82c9e9948619ff9508e28857d97c84580b568"
@@ -6227,12 +6222,12 @@ vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuefire@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-2.2.0.tgz#2ce05d629853301b160a0519b47e7c5f00443ba7"
-  integrity sha512-C4VTbOfioRDezVWrtrXXSarUH+SPG9eA5KOo2S5AueIjjqkv6aUguT53yd6sHzjvi9iGILBK1Gt8B/rlUruKZg==
+vuefire@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-2.2.1.tgz#e7425f6792e3b8347392af685bfbb902bddbf652"
+  integrity sha512-Hgb4SJRJJd3+PZk+/YcqK3kjr28nRPHcODSaFRf731bnvdchjN7vDCeovRZNcXqRxLQ46lSyFzmcaZoqv5YdFQ==
   dependencies:
-    "@posva/vuefire-core" "^2.2.0"
+    "@posva/vuefire-core" "^2.3.0"
 
 vuex@^3.1.2:
   version "3.1.2"

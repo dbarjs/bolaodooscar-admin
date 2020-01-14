@@ -10,15 +10,22 @@ const app = {
 document.body.appendChild(app.element);
 
 /**
- * Vue instance here
+ * Global Vue instance config
  */
 
 import Vue from "vue";
-import App from "./components/App.vue";
-import store from "./store";
 
+// Vuefire
+import { firestorePlugin } from "vuefire";
+Vue.use(firestorePlugin);
+
+// Vue Suggestion
 import VueSuggestion from "vue-suggestion";
 Vue.use(VueSuggestion);
+
+// Global Components and Stores
+import App from "./components/App.vue";
+import store from "./store";
 
 new Vue({
   el: app.element,

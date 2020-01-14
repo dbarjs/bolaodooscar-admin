@@ -24,5 +24,5 @@ export default new Vuex.Store({
       state.currentMovie = movie ? movie : false;
     },
   },
-  modules: { movies, categories },
+  modules: { categories, movies },
 });

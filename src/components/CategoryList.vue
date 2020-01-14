@@ -10,6 +10,8 @@
         @click="setCurrentCategory(category)"
       >
         <p>{{ category.order }} - {{ category.name }}</p>
+        <movie-selector v-bind:categoryId="category.id"></movie-selector>
+        <nominee-list v-bind:categoryId="category.id"></nominee-list>
       </li>
     </ul>
     <button @click="addCategory">Criar Categoria</button>
@@ -20,6 +22,8 @@
 import { categoriesRef } from "../firebase";
 import { mapGetters } from "vuex";
 import CategoryEditor from "./CategoryEditor.vue";
+import NomineeList from "./NomineeList.vue";
+import MovieSelector from "./MovieSelector.vue";
 export default {
   computed: mapGetters({
     categories: "categories/getCategoryList",
@@ -41,6 +45,8 @@ export default {
   },
   components: {
     CategoryEditor,
+    NomineeList,
+    MovieSelector,
   },
 };
 </script>
