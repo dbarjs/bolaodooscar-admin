@@ -7,8 +7,8 @@
 <script>
 export default {
   props: {
-    item: { required: true },
-  },
+    item: { required: true }
+  }
 };
 </script>
 
