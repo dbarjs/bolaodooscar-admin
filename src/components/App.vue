@@ -1,21 +1,22 @@
 <template>
   <main class="app">
-    <category-list></category-list>
-    <movie-list></movie-list>
+    <nav>
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/movies">Go to Movie List</router-link></li>
+        <li><router-link to="/categories">Go to Category List</router-link></li>
+      </ul>
+    </nav>
+    <router-view></router-view>
   </main>
 </template>
 
 <script>
-import CategoryList from "./CategoryList.vue";
-import MovieList from "./MovieList.vue";
-
-import { mapActions, mapState } from "vuex";
-
 export default {
-  components: {
-    CategoryList,
-    MovieList
-  }
+  created() {
+    this.$store.dispatch("movies/bindMoviesRef");
+    this.$store.dispatch("categories/bindCategoriesRef");
+  },
 };
 </script>
 

@@ -1,5 +1,5 @@
 import { firestoreAction } from "vuexfire";
-import axios from "axios";
+import { moviesRef } from "../../firebase";
 
 const state = {
   movies: [],
@@ -10,8 +10,8 @@ const getters = {
 };
 
 const actions = {
-  bindMoviesRef: firestoreAction((context, collectionRef) => {
-    context.bindFirestoreRef("movies", collectionRef.orderBy("title", "asc"));
+  bindMoviesRef: firestoreAction(context => {
+    context.bindFirestoreRef("movies", moviesRef.orderBy("title", "asc"));
   }),
 };
 

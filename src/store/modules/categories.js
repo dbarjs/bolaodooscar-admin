@@ -1,4 +1,5 @@
 import { firestoreAction } from "vuexfire";
+import { categoriesRef } from "../../firebase";
 
 const state = {
   categories: [],
@@ -9,10 +10,10 @@ const getters = {
 };
 
 const actions = {
-  bindCategoriesRef: firestoreAction((context, collectionRef) => {
+  bindCategoriesRef: firestoreAction(context => {
     context.bindFirestoreRef(
       "categories",
-      collectionRef.orderBy("order", "asc")
+      categoriesRef.orderBy("order", "asc")
     );
   }),
 };

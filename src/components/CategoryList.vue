@@ -41,7 +41,6 @@ export default {
   },
   created() {
     this.source = categoriesRef;
-    this.$store.dispatch("categories/bindCategoriesRef", this.source);
   },
   components: {
     CategoryEditor,

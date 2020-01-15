@@ -23,12 +23,19 @@ Vue.use(firestorePlugin);
 import VueSuggestion from "vue-suggestion";
 Vue.use(VueSuggestion);
 
-// Global Components and Stores
+// Vue Router
+import VueRouter from "vue-router";
+import router from "./router";
+
+Vue.use(VueRouter);
+
+// Global Components, Stores
 import App from "./components/App.vue";
 import store from "./store";
 
 new Vue({
   el: app.element,
   store,
+  router,
   render: h => h(App),
 });

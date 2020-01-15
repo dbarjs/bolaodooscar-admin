@@ -9,28 +9,35 @@
         :key="movie.id"
       ></movie-list-item>
     </ul>
-    <movie-button></movie-button>
+    <button @click="addMovie()">Adicionar Filme</button>
   </section>
 </template>
 
 <script>
-import { database } from "../firebase";
+import { moviesRef } from "../firebase";
 import { mapGetters } from "vuex";
 import MovieListItem from "./MovieListItem.vue";
-import MovieButton from "./MovieButton.vue";
 import MovieEditor from "./MovieEditor.vue";
 export default {
   computed: mapGetters({
     movies: "movies/getMovieList",
   }),
+  methods: {
+    addMovie: function() {
+      this.source.add({
+        imdbId: "",
+        title: "",
+        year: 2019,
+        rate: 0,
+      });
+    },
+  },
   components: {
     MovieListItem,
-    MovieButton,
     MovieEditor,
   },
   created: function() {
-    this.source = database.collection("movies");
-    this.$store.dispatch("movies/bindMoviesRef", this.source);
+    this.source = moviesRef;
   },
 };
 </script>

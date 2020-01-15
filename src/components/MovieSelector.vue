@@ -14,7 +14,7 @@
 
 <script>
 import MovieSelectorItem from "./MovieSelectorItem.vue";
-import { categoriesRef } from "../firebase";
+import { moviesRef, categoriesRef } from "../firebase";
 
 export default {
   data: function() {
@@ -51,6 +51,7 @@ export default {
   },
   created() {
     this.categoryRef = categoriesRef.doc(this.categoryId);
+    this.$store.dispatch("movies/bindMoviesRef");
   },
   beforeUpdate() {
     this.categoryRef = categoriesRef.doc(this.categoryId);
