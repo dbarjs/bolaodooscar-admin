@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 
 exports.devServer = ({ host } = {}) => ({
   devServer: {
@@ -13,12 +14,18 @@ exports.devServer = ({ host } = {}) => ({
 });
 
 exports.loadHtmlFile = mode => ({
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: "Bolão do Oscar - Admin",
-      meta: {
-        viewport: "width=device-width, initial-scale=1",
-      },
+      template: "src/index.html",
     }),
   ],
 });
@@ -54,14 +61,14 @@ exports.loadVueFiles = () => ({
       },
     ],
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin(), new VuetifyLoaderPlugin()],
 });
 
-exports.loadCSS = mode => ({
+exports.loadStyles = mode => ({
   module: {
     rules: [
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(sc|c)ss$/,
         use: [
           "vue-style-loader",
           {
@@ -78,6 +85,41 @@ exports.loadCSS = mode => ({
                 require("postcss-preset-env"),
                 require("postcss-google-color"),
               ],
+            },
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
+      },
+      {
+        test: /\.sass$/,
+        use: [
+          "vue-style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: loader => [
+                require("postcss-preset-env"),
+                require("postcss-google-color"),
+              ],
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              sassOptions: {
+                fiber: require("fibers"),
+                indentedSyntax: true,
+              },
             },
           },
         ],

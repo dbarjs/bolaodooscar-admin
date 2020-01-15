@@ -63,10 +63,9 @@ export default {
 };
 </script>
 
-<style>
-.nominee-list-item {
-  display: flex;
-  flex-flow: column;
-  margin-bottom: 0.5em;
-}
+<style lang="sass" scoped>
+.nominee-list-item
+  display: flex
+  flex-flow: column
+  margin-bottom: 0.5em
 </style>

@@ -6,12 +6,16 @@ const parts = require("./webpack.parts");
 const commonConfig = mode =>
   merge([
     parts.loadHtmlFile(),
-    parts.loadCSS(),
+    parts.loadStyles(),
     parts.loadJavaScript(),
     parts.loadVueFiles(),
   ]);
 
-const developmentConfig = merge([]);
+const developmentConfig = merge([
+  parts.devServer({
+    host: "0.0.0.0",
+  }),
+]);
 
 const productionConfig = merge([]);
 

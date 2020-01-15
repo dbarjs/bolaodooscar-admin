@@ -50,16 +50,14 @@ export default {
 };
 </script>
 
-<style>
-.category-list {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-flow: column;
-}
+<style lang="sass">
+.category-list
+  padding: 0
+  margin: 0
+  display: flex
+  flex-flow: column
 
-.category-list-item {
-  /* display: block; */
-  min-height: 1em;
-}
+.category-list-item
+  display: block
+  min-height: 1em
 </style>

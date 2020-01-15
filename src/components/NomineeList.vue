@@ -42,9 +42,8 @@ export default {
 };
 </script>
 
-<style>
-.nominee-list {
-  margin: 0;
-  padding: 0;
-}
+<style lang="sass">
+.nominee-list
+  margin: 0
+  padding: 0
 </style>

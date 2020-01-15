@@ -1,22 +1,51 @@
 <template>
-  <main class="app">
-    <nav>
-      <ul>
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/movies">Go to Movie List</router-link></li>
-        <li><router-link to="/categories">Go to Category List</router-link></li>
-      </ul>
-    </nav>
-    <router-view></router-view>
-  </main>
+  <v-app id="app" dark>
+    <v-content>
+      <v-btn small color="primary">Primary</v-btn>
+      <router-view></router-view>
+    </v-content>
+    <v-footer app>
+      <v-bottom-navigation v-model="bottomNav" fixed dark>
+        <v-btn to="/movies">
+          <span>Filmes</span>
+          <v-icon>mdi-library-movie</v-icon>
+        </v-btn>
+        <v-btn to="/categories">
+          <span>Categorias</span>
+          <v-icon>mdi-view-grid</v-icon>
+        </v-btn>
+        <v-btn to="/nominees">
+          <span>Indicados</span>
+          <v-icon>mdi-star-box</v-icon>
+        </v-btn>
+        <v-btn to="/winners">
+          <span>Vencedores</span>
+          <v-icon>mdi-seal</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    bottomNav: 4,
+    drawers: ["Default (no property)", "Permanent", "Temporary"],
+    primaryDrawer: {
+      model: null,
+      clipped: false,
+      floating: false,
+      mini: false
+    },
+    footer: {
+      inset: false
+    }
+  }),
   created() {
     this.$store.dispatch("movies/bindMoviesRef");
     this.$store.dispatch("categories/bindCategoriesRef");
-  },
+  }
 };
 </script>
 

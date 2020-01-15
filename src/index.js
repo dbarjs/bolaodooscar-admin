@@ -3,10 +3,8 @@
  */
 
 import "normalize.css";
+import app from "./app";
 
-const app = {
-  element: document.createElement("main"),
-};
 document.body.appendChild(app.element);
 
 /**
@@ -14,18 +12,21 @@ document.body.appendChild(app.element);
  */
 
 import Vue from "vue";
+import { firestorePlugin } from "vuefire";
+import VueSuggestion from "vue-suggestion";
+import VueRouter from "vue-router";
 
 // Vuefire
-import { firestorePlugin } from "vuefire";
 Vue.use(firestorePlugin);
 
 // Vue Suggestion
-import VueSuggestion from "vue-suggestion";
 Vue.use(VueSuggestion);
 
 // Vue Router
-import VueRouter from "vue-router";
 import router from "./router";
+
+// Vuetify
+import vuetify from "./plugins/vuetify";
 
 Vue.use(VueRouter);
 
@@ -37,5 +38,6 @@ new Vue({
   el: app.element,
   store,
   router,
+  vuetify,
   render: h => h(App),
 });

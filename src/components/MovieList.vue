@@ -2,13 +2,15 @@
   <section class="movie-section">
     <h1>Lista de Filmes</h1>
     <movie-editor></movie-editor>
-    <ul class="movie-list">
-      <movie-list-item
-        v-for="movie in movies"
-        v-bind:movie-data="movie"
-        :key="movie.id"
-      ></movie-list-item>
-    </ul>
+    <div class="movie-list">
+      <div class="movie-list-wrap">
+        <movie-list-item
+          v-for="movie in movies"
+          v-bind:movie-data="movie"
+          :key="movie.id"
+        ></movie-list-item>
+      </div>
+    </div>
     <button @click="addMovie()">Adicionar Filme</button>
   </section>
 </template>
@@ -20,7 +22,7 @@ import MovieListItem from "./MovieListItem.vue";
 import MovieEditor from "./MovieEditor.vue";
 export default {
   computed: mapGetters({
-    movies: "movies/getMovieList",
+    movies: "movies/getMovieList"
   }),
   methods: {
     addMovie: function() {
@@ -28,25 +30,30 @@ export default {
         imdbId: "",
         title: "",
         year: 2019,
-        rate: 0,
+        rate: 0
       });
-    },
+    }
   },
   components: {
     MovieListItem,
-    MovieEditor,
+    MovieEditor
   },
   created: function() {
     this.source = moviesRef;
-  },
+  }
 };
 </script>
 
-<style>
-.movie-list {
-  display: flex;
-  flex-flow: column;
-  padding: 0;
-  margin: 0;
-}
+<style lang="sass">
+.movie-list
+  display: flex
+  width: 100%
+
+  .movie-list-wrap
+    display: flex
+    flex-flow: row wrap
+    justify-content: flex-start
+    align-content: flex-start
+    padding: 16px 18px 8px
+    margin: 0 auto
 </style>

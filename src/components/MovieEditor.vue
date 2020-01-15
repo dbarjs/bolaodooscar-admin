@@ -6,7 +6,7 @@
       placeholder="IMDB ID"
       @input="update($event, 'imdbId', String)"
     />
-    <button @click="fetchApiData">Get IMDB data</button>
+    <v-btn @click="fetchApiData">Get IMDB data</v-btn>
     <input
       type="text"
       v-model="movie.title"
@@ -45,13 +45,13 @@ export default {
   computed: {
     movie: function() {
       return this.$store.state.currentMovie;
-    },
+    }
   },
   methods: {
     update(event, fieldName, type) {
       this.source.update({
         // method to parse input value
-        [fieldName]: autoParse(event.target.value.trim(), type),
+        [fieldName]: autoParse(event.target.value.trim(), type)
       });
     },
     closeEditor() {
@@ -70,12 +70,12 @@ export default {
             "content-type": "application/octet-stream",
             "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
             "x-rapidapi-key":
-              "d829a7ddbdmsh61447fa124697f6p1eefd6jsn2e983d49a512",
+              "d829a7ddbdmsh61447fa124697f6p1eefd6jsn2e983d49a512"
           },
           params: {
             i: this.movie.imdbId,
-            r: "json",
-          },
+            r: "json"
+          }
         })
           .then(response => {
             const data = response.data;
@@ -97,27 +97,25 @@ export default {
               actors: data.Actors,
               released: data.Released,
               genre: data.Genre,
-              rated: data.Rated,
+              rated: data.Rated
             });
           })
           .catch(error => {
             console.log(error);
           });
       }
-    },
+    }
   },
   beforeUpdate: function() {
     if (this.movie.id) {
       this.source = moviesRef.doc(this.movie.id);
     }
-  },
+  }
 };
 </script>
 
-<style>
-.movie-editor {
-  background-color: red;
-  display: flex;
-  flex-flow: column;
-}
+<style lang="sass">
+.movie-editor
+  display: flex
+  flex-flow: column
 </style>
