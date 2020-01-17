@@ -1,7 +1,6 @@
 <template>
-  <v-app id="app" dark>
+  <v-app id="app">
     <v-content>
-      <v-btn small color="primary">Primary</v-btn>
       <router-view></router-view>
     </v-content>
     <v-footer app>

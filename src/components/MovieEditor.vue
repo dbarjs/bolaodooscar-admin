@@ -1,39 +1,117 @@
 <template>
   <div class="movie-editor" v-if="movie">
-    <input
-      type="text"
-      v-model="movie.imdbId"
-      placeholder="IMDB ID"
-      @input="update($event, 'imdbId', String)"
-    />
-    <v-btn @click="fetchApiData">Get IMDB data</v-btn>
-    <input
-      type="text"
-      v-model="movie.title"
-      placeholder="Title"
-      @input="update($event, 'title', String)"
-    />
-    <input
-      type="number"
-      v-model="movie.year"
-      placeholder="Year"
-      @input="update($event, 'year', Number)"
-    />
-    <input
-      type="number"
-      v-model="movie.rate"
-      step="0.1"
-      placeholder="Rate"
-      @input="update($event, 'rate', Number)"
-    />
-    <input
-      type="text"
-      v-model="movie.director"
-      placeholder="Director"
-      @input="update($event, 'director', String)"
-    />
-    <button @click="deleteMovie">Excluir Filme</button>
-    <button @click="closeEditor">Fechar editor</button>
+    <v-overlay light="true">
+      <v-card min-width="320" class="mx-auto">
+        <v-img height="180" v-bind:src="movie.poster"></v-img>
+        <v-form>
+          <v-container>
+            <v-text-field
+              dense
+              name="imdbId"
+              label="IMDb ID"
+              id="imdbId"
+              type="text"
+              v-model="movie.imdbId"
+              @input="update($event, 'imdbId', String)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="title"
+              label="Título do Filme"
+              id="title"
+              type="text"
+              v-model="movie.title"
+              @input="update($event, 'title', String)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="year"
+              label="Ano de Lançamento"
+              id="year"
+              type="number"
+              v-model="movie.year"
+              @input="update($event, 'year', Number)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="imdbRating"
+              label="Nota no IMDb"
+              id="imdbRating"
+              type="number"
+              step="0.1"
+              v-model="movie.imdbRating"
+              @input="update($event, 'imdbRating', Number)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="metascore"
+              label="Metacritic"
+              id="metascore"
+              type="number"
+              suffix="/100"
+              v-model="movie.metascore"
+              @input="update($event, 'metascore', Number)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="director"
+              label="Diretor"
+              id="director"
+              type="text"
+              v-model="movie.director"
+              @input="update($event, 'director', String)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="actors"
+              label="Elenco"
+              id="actors"
+              type="text"
+              v-model="movie.actors"
+              @input="update($event, 'actors', String)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="genre"
+              label="Gênero"
+              id="genre"
+              type="text"
+              v-model="movie.genre"
+              @input="update($event, 'genre', String)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="runtime"
+              label="Tempo"
+              id="runtime"
+              type="text"
+              v-model="movie.runtime"
+              suffix="minutos"
+              @input="update($event, 'runtime', Number)"
+            ></v-text-field>
+            <v-text-field
+              dense
+              name="poster"
+              label="URL do Poster"
+              id="poster"
+              type="text"
+              v-model="movie.poster"
+              @input="update($event, 'poster', String)"
+            ></v-text-field>
+          </v-container>
+        </v-form>
+        <v-card-actions>
+          <v-btn text @click="closeEditor">Fechar</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn text @click="fetchApiData" color="orange">
+            <v-icon>mdi-cloud-sync</v-icon>
+          </v-btn>
+          <v-btn text @click="deleteMovie" color="red">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-overlay>
   </div>
 </template>
 

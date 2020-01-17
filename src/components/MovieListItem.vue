@@ -90,5 +90,4 @@ export default {
 
       .imdb
         margin-right: .375em
-  
 </style>
