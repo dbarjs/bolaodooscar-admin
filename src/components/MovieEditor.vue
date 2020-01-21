@@ -1,6 +1,6 @@
 <template>
   <div class="movie-editor" v-if="movie">
-    <v-overlay light="true">
+    <v-overlay>
       <v-card min-width="320" class="mx-auto">
         <v-img height="180" v-bind:src="movie.poster"></v-img>
         <v-form>
@@ -129,7 +129,7 @@ export default {
     update(event, fieldName, type) {
       this.source.update({
         // method to parse input value
-        [fieldName]: autoParse(event.target.value.trim(), type)
+        [fieldName]: autoParse(event.trim(), type)
       });
     },
     closeEditor() {
