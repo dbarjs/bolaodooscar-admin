@@ -84,7 +84,7 @@
               name="runtime"
               label="Tempo"
               id="runtime"
-              type="text"
+              type="number"
               v-model="movie.runtime"
               suffix="minutos"
               @input="update($event, 'runtime', Number)"

@@ -1,21 +1,23 @@
 <template>
-  <div class="category-editor" v-if="category">
-    <input
-      type="text"
-      v-model="category.name"
-      placeholder="name"
-      @input="update($event, 'name')"
-    />
-    <input
-      type="number"
-      v-model="category.order"
-      placeholder="order"
-      @input="update($event, 'order')"
-    />
-    <button @click="deleteCategory">Excluir Categoria</button>
-    <button @click="closeEditor">Fechar Editor</button>
-    <p>{{ category }}</p>
-  </div>
+  <v-col cols="12" class="category-editor" v-if="category">
+    <v-card color="#385F73" dark>
+      <input
+        type="text"
+        v-model="category.name"
+        placeholder="name"
+        @input="update($event, 'name')"
+      />
+      <input
+        type="number"
+        v-model="category.order"
+        placeholder="order"
+        @input="update($event, 'order')"
+      />
+      <v-btn @click="deleteCategory">Excluir Categoria</v-btn>
+      <v-btn @click="closeEditor">Fechar Editor</v-btn>
+      <p>{{ category }}</p>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -25,7 +27,7 @@ export default {
   computed: {
     category: function() {
       return this.$store.state.currentCategory;
-    },
+    }
   },
   beforeUpdate() {
     if (this.category.id) {
@@ -35,7 +37,7 @@ export default {
   methods: {
     update(event, fieldName) {
       this.source.update({
-        [fieldName]: autoParse(event.target.value.trim()) || "",
+        [fieldName]: autoParse(event.target.value.trim()) || ""
       });
     },
     deleteCategory() {
@@ -44,8 +46,8 @@ export default {
     },
     closeEditor() {
       this.$store.commit("setCurrentCategory", false);
-    },
-  },
+    }
+  }
 };
 </script>
 

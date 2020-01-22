@@ -1,16 +1,44 @@
 <template>
-  <li class="nominee-list-item">
-    <input
-      type="text"
-      v-model="nominee.name"
-      placeholder="Nome da Indicação"
-      @keyup.enter="update($event, 'name', String)"
-    />
-    <span v-if="getMovieTitle">
-      {{ getMovieTitle }}
-    </span>
-    <button @click="deleteNominee">Apagar Indicação</button>
-  </li>
+  <v-col cols="12">
+    <v-card class="nominee-list-item elevation-6" color="#385F73" dark>
+      <v-img v-bind:src="getNomineePoster"></v-img>
+      <v-card-title class="headline">{{ nominee.name }}</v-card-title>
+      <v-card-subtitle v-if="getMovieTitle">
+        {{ getMovieTitle }}
+      </v-card-subtitle>
+      <v-container>
+        <v-text-field
+          name="name"
+          outlined
+          dense
+          label="Nome do Indicado"
+          type="text"
+          v-model="nominee.name"
+          placeholder="Nome da Indicação"
+          @keyup.enter="update($event, 'name', String)"
+        ></v-text-field>
+        <v-text-field
+          name="poster"
+          outlined
+          dense
+          label="Poster do Indicado"
+          type="text"
+          v-model="nominee.poster"
+          placeholder="Poster da Indicação"
+          @input="update($event, 'poster', String)"
+        ></v-text-field>
+      </v-container>
+      <v-card-actions>
+        <v-btn @click="deleteNominee" text>
+          Excluir
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn @click="deleteNominee" icon>
+          <v-icon>mdi-sync</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -21,32 +49,39 @@ export default {
     return {
       nominee: {
         movie: {
-          title: "",
-        },
-      },
+          title: ""
+        }
+      }
     };
   },
   computed: {
+    getNomineePoster() {
+      return this.nominee.poster
+        ? this.nominee.poster
+        : this.nominee.movie.poster;
+    },
     getMovieTitle() {
       return this.nominee.movie.title !== this.nominee.name
         ? this.nominee.movie.title
         : false;
-    },
+    }
   },
   props: {
     categoryId: { required: true },
-    nomineeId: { required: true },
+    nomineeId: { required: true }
   },
   methods: {
     deleteNominee() {
       this.source.delete();
     },
     update(event, fieldName, type) {
+      // the "event" can be String or a Input Event Object
+      const value = event.target ? event.target.value : event;
       this.source.update({
         // method to parse input value
-        [fieldName]: autoParse(event.target.value.trim(), type),
+        [fieldName]: autoParse(value.trim(), type)
       });
-    },
+    }
   },
   watch: {
     categoryId: {
@@ -57,15 +92,11 @@ export default {
           .collection("nominees")
           .doc(this.nomineeId);
         this.$bind("nominee", this.source);
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 
 <style lang="sass" scoped>
-.nominee-list-item
-  display: flex
-  flex-flow: column
-  margin-bottom: 0.5em
 </style>

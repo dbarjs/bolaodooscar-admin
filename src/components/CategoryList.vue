@@ -1,21 +1,25 @@
 <template>
-  <section class="category-section">
-    <h1>Lista de Categorias</h1>
+  <v-card max-width="400" class="mx-auto category-section">
+    <h1>Categorias</h1>
     <category-editor></category-editor>
-    <ul class="category-list">
-      <li
-        v-for="category in categories"
-        class="category-list-item"
-        :key="category.id"
-        @click="setCurrentCategory(category)"
-      >
-        <p>{{ category.order }} - {{ category.name }}</p>
-        <movie-selector v-bind:categoryId="category.id"></movie-selector>
-        <nominee-list v-bind:categoryId="category.id"></nominee-list>
-      </li>
-    </ul>
+    <v-container>
+      <v-row>
+        <v-col v-for="category in categories" :key="category.id" cols="12">
+          <v-card-title>
+            {{ category.order }} - {{ category.name }}
+          </v-card-title>
+          <nominee-list v-bind:categoryId="category.id"></nominee-list>
+          <movie-selector v-bind:categoryId="category.id"></movie-selector>
+          <v-card-actions>
+            <v-btn text @click="setCurrentCategory(category)"
+              >Editar Categoria</v-btn
+            >
+          </v-card-actions>
+        </v-col>
+      </v-row>
+    </v-container>
     <button @click="addCategory">Criar Categoria</button>
-  </section>
+  </v-card>
 </template>
 
 <script>
@@ -26,7 +30,7 @@ import NomineeList from "./NomineeList.vue";
 import MovieSelector from "./MovieSelector.vue";
 export default {
   computed: mapGetters({
-    categories: "categories/getCategoryList",
+    categories: "categories/getCategoryList"
   }),
   methods: {
     setCurrentCategory(category) {
@@ -35,9 +39,9 @@ export default {
     addCategory() {
       categoriesRef.add({
         name: "Nova Categoria",
-        order: this.categories.length + 1,
+        order: this.categories.length + 1
       });
-    },
+    }
   },
   created() {
     this.source = categoriesRef;
@@ -45,19 +49,10 @@ export default {
   components: {
     CategoryEditor,
     NomineeList,
-    MovieSelector,
-  },
+    MovieSelector
+  }
 };
 </script>
 
-<style lang="sass">
-.category-list
-  padding: 0
-  margin: 0
-  display: flex
-  flex-flow: column
-
-.category-list-item
-  display: block
-  min-height: 1em
+<style>
 </style>
