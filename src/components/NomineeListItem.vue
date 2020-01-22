@@ -33,7 +33,7 @@
           Excluir
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn @click="deleteNominee" icon>
+        <v-btn @click="syncMovieData" icon>
           <v-icon>mdi-sync</v-icon>
         </v-btn>
       </v-card-actions>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { categoriesRef } from "../firebase";
+import { categoriesRef, moviesRef } from "../firebase";
 import autoParse from "auto-parse";
 export default {
   data() {
@@ -73,6 +73,25 @@ export default {
   methods: {
     deleteNominee() {
       this.source.delete();
+    },
+    syncMovieData() {
+      if (this.nominee.movie.movieId) {
+        moviesRef
+          .doc(this.nominee.movie.movieId)
+          .get()
+          .then(snapshot => {
+            this.updateMovieData(snapshot.id, snapshot.data());
+          });
+      }
+    },
+    updateMovieData(movieId, movieData) {
+      if (this.source) {
+        movieData.movieId = movieId;
+        this.source.update({
+          movie: movieData,
+          movieId: movieId
+        });
+      }
     },
     update(event, fieldName, type) {
       // the "event" can be String or a Input Event Object
