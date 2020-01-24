@@ -31,7 +31,7 @@ import vuetify from "./plugins/vuetify";
 Vue.use(VueRouter);
 
 // Global Components, Stores
-import App from "./components/App.vue";
+import App from "./layout/App.vue";
 import store from "./store";
 
 new Vue({

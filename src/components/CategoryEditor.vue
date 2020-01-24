@@ -1,21 +1,37 @@
 <template>
   <v-col cols="12" class="category-editor" v-if="category">
     <v-card color="#385F73" dark>
-      <input
-        type="text"
-        v-model="category.name"
-        placeholder="name"
-        @input="update($event, 'name')"
-      />
-      <input
-        type="number"
-        v-model="category.order"
-        placeholder="order"
-        @input="update($event, 'order')"
-      />
-      <v-btn @click="deleteCategory">Excluir Categoria</v-btn>
-      <v-btn @click="closeEditor">Fechar Editor</v-btn>
-      <p>{{ category }}</p>
+      <span>{{ category }}</span>
+      <v-container grid-list-xs class="pb-0">
+        <v-text-field
+          outlined
+          type="text"
+          label="Nome da Categoria"
+          v-model="category.name"
+          placeholder="Nome"
+          @input="update($event, 'name', String)"
+        ></v-text-field>
+        <v-text-field
+          outlined
+          type="text"
+          label="Nome curto da Categoria"
+          v-model="category.shortName"
+          placeholder="Nome Curto"
+          @input="update($event, 'shortName', String)"
+        ></v-text-field>
+        <v-text-field
+          outlined
+          type="number"
+          label="Posição"
+          v-model="category.order"
+          placeholder="order"
+          @input="update($event, 'order', Number)"
+        ></v-text-field>
+      </v-container>
+      <v-card-actions>
+        <v-btn @click="closeEditor" text>Fechar</v-btn>
+        <v-btn @click="deleteCategory" color="red">Excluir Categoria</v-btn>
+      </v-card-actions>
     </v-card>
   </v-col>
 </template>
@@ -35,9 +51,12 @@ export default {
     }
   },
   methods: {
-    update(event, fieldName) {
+    update(event, fieldName, type) {
+      // the "event" can be String or a Input Event Object
+      const value = event.target ? event.target.value : event;
       this.source.update({
-        [fieldName]: autoParse(event.target.value.trim()) || ""
+        // method to parse input value
+        [fieldName]: autoParse(value.trim(), type)
       });
     },
     deleteCategory() {

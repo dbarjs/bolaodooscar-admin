@@ -1,17 +1,23 @@
 <template>
   <v-card max-width="400" class="mx-auto category-section">
     <h1>Categorias</h1>
-    <category-editor></category-editor>
+    <category-editor v-if="showCategoryEditor"></category-editor>
     <v-container>
       <v-row>
         <v-col v-for="category in categories" :key="category.id" cols="12">
           <v-card-title>
             {{ category.order }} - {{ category.name }}
           </v-card-title>
-          <nominee-list v-bind:categoryId="category.id"></nominee-list>
-          <movie-selector v-bind:categoryId="category.id"></movie-selector>
-          <v-card-actions>
-            <v-btn text @click="setCurrentCategory(category)"
+          <nominee-list
+            v-if="showNominees"
+            v-bind:categoryId="category.id"
+          ></nominee-list>
+          <movie-selector
+            v-if="showMovieSelector"
+            v-bind:categoryId="category.id"
+          ></movie-selector>
+          <v-card-actions v-if="showCategoryEditor">
+            <v-btn color="primary" text @click="setCurrentCategory(category)"
               >Editar Categoria</v-btn
             >
           </v-card-actions>
@@ -29,6 +35,20 @@ import CategoryEditor from "./CategoryEditor.vue";
 import NomineeList from "./NomineeList.vue";
 import MovieSelector from "./MovieSelector.vue";
 export default {
+  props: {
+    showNominees: {
+      type: Boolean,
+      default: true
+    },
+    showCategoryEditor: {
+      type: Boolean,
+      default: true
+    },
+    showMovieSelector: {
+      type: Boolean,
+      default: true
+    }
+  },
   computed: mapGetters({
     categories: "categories/getCategoryList"
   }),
