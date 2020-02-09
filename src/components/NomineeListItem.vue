@@ -88,7 +88,7 @@ export default {
       if (this.source) {
         movieData.movieId = movieId;
         this.source.update({
-          movie: movieData,
+          movie: moviesRef.doc(movieId),
           movieId: movieId
         });
       }

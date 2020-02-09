@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+    <user-auth></user-auth>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -27,20 +28,26 @@
 </template>
 
 <script>
+import UserAuth from "../components/UserAuth.vue";
 export default {
-  data: () => ({
-    bottomNav: 4,
-    drawers: ["Default (no property)", "Permanent", "Temporary"],
-    primaryDrawer: {
-      model: null,
-      clipped: false,
-      floating: false,
-      mini: false
-    },
-    footer: {
-      inset: false
-    }
-  }),
+  data() {
+    return {
+      bottomNav: 4,
+      drawers: ["Default (no property)", "Permanent", "Temporary"],
+      primaryDrawer: {
+        model: null,
+        clipped: false,
+        floating: false,
+        mini: false
+      },
+      footer: {
+        inset: false
+      }
+    };
+  },
+  components: {
+    UserAuth
+  },
   created() {
     this.$store.dispatch("movies/bindMoviesRef");
     this.$store.dispatch("categories/bindCategoriesRef");
