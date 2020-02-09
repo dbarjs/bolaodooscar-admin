@@ -8,6 +8,11 @@
           <v-card-title>
             {{ category.order }} - {{ category.name }}
           </v-card-title>
+          <winner-select
+            v-if="showWinnerSelect"
+            :categoryId="category.id"
+            :categoryWinner="category.winner"
+          ></winner-select>
           <nominee-list
             v-if="showNominees"
             v-bind:categoryId="category.id"
@@ -17,9 +22,9 @@
             v-bind:categoryId="category.id"
           ></movie-selector>
           <v-card-actions v-if="showCategoryEditor">
-            <v-btn color="primary" text @click="setCurrentCategory(category)"
-              >Editar Categoria</v-btn
-            >
+            <v-btn color="primary" text @click="setCurrentCategory(category)">
+              Editar Categoria
+            </v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -32,8 +37,9 @@
 import { categoriesRef } from "../firebase";
 import { mapGetters } from "vuex";
 import CategoryEditor from "./CategoryEditor.vue";
-import NomineeList from "./NomineeList.vue";
 import MovieSelector from "./MovieSelector.vue";
+import NomineeList from "./NomineeList.vue";
+import WinnerSelect from "./WinnerSelect.vue";
 export default {
   props: {
     showNominees: {
@@ -47,6 +53,10 @@ export default {
     showMovieSelector: {
       type: Boolean,
       default: true
+    },
+    showWinnerSelect: {
+      type: Boolean,
+      default: false
     }
   },
   computed: mapGetters({
@@ -68,8 +78,9 @@ export default {
   },
   components: {
     CategoryEditor,
+    MovieSelector,
     NomineeList,
-    MovieSelector
+    WinnerSelect
   }
 };
 </script>

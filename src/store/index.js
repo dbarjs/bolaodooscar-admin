@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: false,
+    verifiedAuthState: false,
     currentMovie: false,
     currentCategory: false,
   },
@@ -22,6 +24,12 @@ export default new Vuex.Store({
     },
     setCurrentMovie(state, movie) {
       state.currentMovie = movie ? movie : false;
+    },
+    setUser(state, user) {
+      state.user = user;
+    },
+    setVerifiedAuthState(state, value) {
+      state.verifiedAuthState = !!value;
     },
   },
   modules: { categories, movies },
