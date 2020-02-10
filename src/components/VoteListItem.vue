@@ -29,6 +29,9 @@
         </v-icon>
       </v-btn>
       <v-spacer></v-spacer>
+      <v-btn icon :href="voteURL" target="_blank">
+        <v-icon>mdi-link</v-icon>
+      </v-btn>
       <v-btn icon color="red" @click="deleteVote">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
@@ -60,10 +63,13 @@ export default {
   data() {
     return {
       showChoiceList: false,
-      aux: 0,
+      aux: 0
     };
   },
   computed: {
+    voteURL() {
+      return "http://bolaodooscar.web.app/vote/" + this.vote.id;
+    },
     userPhoto() {
       try {
         return this.vote.user.providerData.photoURL;
@@ -84,7 +90,7 @@ export default {
       try {
         return this.vote.created
           ? DateTime.fromSeconds(
-              this.vote.created.seconds + this.aux
+              this.vote.updated.seconds + this.aux
             ).toRelative()
           : false;
       } catch (e) {
@@ -105,26 +111,26 @@ export default {
         }
         return 0;
       });
-    },
+    }
   },
   methods: {
     deleteVote() {
       if (this.vote.id && confirm("Você confirma a exclusão do voto?")) {
         votesRef.doc(this.vote.id).delete();
       }
-    },
+    }
   },
   props: {
     vote: {
-      required: true,
-    },
+      required: true
+    }
   },
   mounted() {
     setInterval(() => {
       // interval to force recalculate the "updateTime" property
       this.aux = this.aux == 0 ? 1 : 0;
     }, 10000);
-  },
+  }
 };
 </script>
 
