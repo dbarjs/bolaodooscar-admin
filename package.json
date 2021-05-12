@@ -34,7 +34,7 @@
     "firebase": "^7.6.1",
     "luxon": "^1.22.0",
     "normalize.css": "^8.0.1",
-    "postcss": "^7.0.25",
+    "postcss": "^8.2.10",
     "postcss-google-color": "^2.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
